@@ -21,6 +21,8 @@
   <meta name="twitter:image" content="https://www.prithvivc.com/images/og.jpg" />
 
   <link rel="preload" as="image" href="/video/earth-epic.jpg" />
+  <link rel="preload" as="image" href="/images/earth-map.webp" />
+  <link rel="preload" as="image" href="/images/earth-lights.webp" />
   <link rel="stylesheet" href="/css/main.css" />
 </head>
 
@@ -32,9 +34,9 @@
     <section class="reel" aria-label="Prithvi Ventures">
       <div class="reel-frame">
         <div class="reel-slides">
-          <article class="reel-slide" data-duration="8">
+          <article class="reel-slide" data-duration="8" data-globe>
             <div class="reel-media">
-              <video class="reel-video" src="/video/earth-epic.mp4" poster="/video/earth-epic.jpg" muted playsinline loop preload="auto" aria-hidden="true"></video>
+              <video class="reel-video" src="/video/earth-epic.mp4" poster="/video/earth-epic.jpg" muted playsinline loop preload="none" aria-hidden="true"></video>
             </div>
           </article>
         </div>
@@ -45,7 +47,7 @@
           <div class="reel-caption" data-slide="0" data-duration="8">
             <p class="small reel-kicker">Prithvi Ventures</p>
             <h1 class="reel-title shiro">Building hyper ambitious startups that deliver energy abundance.</h1>
-            <a class="link reel-link" href="#story">Kunal’s story ↓</a>
+            <a class="link reel-link" href="#story" data-phase="2">Kunal’s story ↓</a>
           </div>
           <div class="reel-caption" data-slide="0" data-duration="7">
             <p class="small reel-kicker">Groq</p>
@@ -73,11 +75,17 @@
           <button class="reel-seg small" type="button"><span>03 <span class="reel-seg-name">&nbsp; Nth Cycle</span></span><span class="reel-seg-bar"><i></i></span></button>
           <button class="reel-seg small" type="button"><span>04 <span class="reel-seg-name">&nbsp; 6K</span></span><span class="reel-seg-bar"><i></i></span></button>
         </div>
+
+        <div class="reel-foot">
+          <p class="small reel-hint" hidden>Drag to spin the Earth</p>
+          <!-- site credit; moves to the footer once the footer is live -->
+          <a class="small reel-credit" href="https://x.com/mnt_rushmore" target="_blank" rel="noopener" data-until="3">Site by Rushil Chopra ↗</a>
+        </div>
       </div>
     </section>
 
     <!-- pṛthvī -->
-    <section class="meaning" aria-labelledby="meaning-word">
+    <section class="meaning" data-phase="2" aria-labelledby="meaning-word">
       <div class="meaning-earth"><img src="/images/earth-india.webp" alt="Earth photographed by NASA’s DSCOVR satellite, with India at the centre" width="1400" height="1400" loading="lazy" /></div>
       <h2 class="meaning-word deva" id="meaning-word" lang="sa">पृथ्वी</h2>
       <div class="meaning-caption">
@@ -88,7 +96,7 @@
     </section>
 
     <!-- kunal's story: four scenes, driven by scroll -->
-    <section class="story" id="story" aria-label="Kunal’s story">
+    <section class="story" data-phase="2" id="story" aria-label="Kunal’s story">
       <div class="story-pin">
         <header class="story-head small">
           <span>Kunal’s story</span>
@@ -159,7 +167,7 @@
     </section>
 
     <!-- what we do (from the memo) -->
-    <section class="manifesto">
+    <section class="manifesto" data-phase="3">
       <div class="manifesto-inner">
         <p class="small">What we do</p>
         <p class="manifesto-text">Investing in hyper ambitious startups that deliver energy abundance. We go after boring problems most do not want to touch and solve them with ridiculous tech taking a monopolistic approach.</p>
@@ -168,7 +176,7 @@
     </section>
 
     <!-- portfolio highlights -->
-    <section class="highlights" aria-label="Portfolio highlights">
+    <section class="highlights" data-phase="3" aria-label="Portfolio highlights">
       <div class="hl-cards" aria-hidden="true"></div>
       <div class="hl-titles">
         <div class="hl-panel"><h2>Materials</h2><p>6K · Nth Cycle</p></div>
@@ -185,7 +193,7 @@
     </section>
 
     <!-- how we work: each principle fills in as you scroll -->
-    <section class="how t-forest" aria-label="How we work">
+    <section class="how t-forest" data-phase="3" aria-label="How we work">
       <div class="how-head">
         <p class="small muted">How we work</p>
         <p class="how-intro">Backing bold visionaries who are fearless in writing their own playbook to protect our Pṛthvī and make money.</p>
@@ -215,7 +223,7 @@
     </section>
 
     <!-- team -->
-    <section class="team-teaser">
+    <section class="team-teaser" data-phase="4">
       <div class="team-teaser-head">
         <p class="small">Who we are</p>
         <h2>Team</h2>
@@ -240,7 +248,7 @@
     </section>
 
     <!-- join us -->
-    <section class="join t-clay">
+    <section class="join t-clay" data-phase="4">
       <h2>Join us in growing Prithvi</h2>
       <ul class="join-list">
         <li><a class="join-row" href="https://numberoneks.notion.site/Prithvi-Ventures-Memo-8487eb0a7445465c80dd21a3c7d80b78" target="_blank" rel="noopener"><span class="small">For investors</span><span class="join-row-title">Prithvi Ventures Memo</span><span class="join-row-arrow">↗</span></a></li>
@@ -250,7 +258,7 @@
       </ul>
     </section>
 
-    <section class="ticker" aria-label="Portfolio companies">
+    <section class="ticker" data-phase="4" aria-label="Portfolio companies">
       <div class="ticker-track">
         <span>6K</span><span class="dot" lang="hi">।</span><span>Nth Cycle</span><span class="dot" lang="hi">।</span><span>Amprius</span><span class="dot" lang="hi">।</span><span>Groq</span><span class="dot" lang="hi">।</span><span>Electra</span><span class="dot" lang="hi">।</span><span>dClimate</span><span class="dot" lang="hi">।</span><span>Odys Aviation</span><span class="dot" lang="hi">।</span><span>Cyclops</span><span class="dot" lang="hi">।</span><span>Voyager</span><span class="dot" lang="hi">।</span>
       </div>

@@ -1,5 +1,5 @@
 import gsap from "gsap";
-import { SplitText } from "gsap/SplitText";
+import { isLive } from "./phase.js";
 
 // Kunal's story as one scroll-driven sequence:
 //   01 the red lights: five pods light up, one per variable, then go out,
@@ -21,11 +21,9 @@ const tornEdge = () => {
   return `polygon(${top.join(",")},${bottom.join(",")})`;
 };
 
-const lines = (el) => SplitText.create(el, { type: "lines", mask: "lines" }).lines;
-
 export function initStory(ctx) {
   const story = document.querySelector(".story");
-  if (!story) return;
+  if (!isLive(story)) return;
 
   const pin = story.querySelector(".story-pin");
   const $ = (sel) => story.querySelector(sel);
@@ -43,25 +41,25 @@ export function initStory(ctx) {
   const gantry = $(".gantry");
   const pods = $$(".pod");
   const podLabels = $$(".pod-label");
-  const lightsLine = lines($(".lights-line"));
+  const lightsLine = $(".lights-line");
   const lightsSub = $(".lights-sub");
 
   const photo = $(".drivers-photo");
   const photoImg = $(".drivers-photo img");
-  const driversLine = lines($(".drivers-line"));
+  const driversLine = $(".drivers-line");
 
-  const historyLine = lines($(".history-line"));
+  const historyLine = $(".history-line");
   const historySub = $(".history-sub");
   const yearEl = $(".history-year");
   const ruler = $(".ruler");
   const marker = $(".ruler-marker");
 
   const paper = $(".present-paper");
-  const presentLine = lines($(".present-line"));
+  const presentLine = $(".present-line");
   const presentBody = $$(".present-body");
 
   const earth = $(".story-earth");
-  const escapeLine = lines($(".escape-line"));
+  const escapeLine = $(".escape-line");
   const escapeRest = $$(".escape-body, .escape-sign");
 
   const ticks = $$(".story-tick");
@@ -92,19 +90,17 @@ export function initStory(ctx) {
   gsap.set(earth, { xPercent: -50 });
 
   const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-  const rise = (targets, at) =>
-    tl.fromTo(targets, { yPercent: 105 }, { yPercent: 0, duration: 0.45, stagger: 0.05 }, at);
-  const fadeUp = (targets, at) =>
-    tl.fromTo(targets, { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.3, stagger: 0.08 }, at);
+  const fadeIn = (targets, at) =>
+    tl.fromTo(targets, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.35, stagger: 0.08, ease: "power1.out" }, at);
   const leave = (targets, at) =>
-    tl.to(targets, { autoAlpha: 0, y: -24, duration: 0.3, stagger: 0.02, ease: "power2.in" }, at);
+    tl.to(targets, { autoAlpha: 0, duration: 0.3, ease: "power1.in" }, at);
 
   // 01 · the red lights
   tl.set(scenes.lights, { autoAlpha: 1 }, 0)
     .fromTo(gantry, { autoAlpha: 0, y: -40 }, { autoAlpha: 1, y: 0, duration: 0.35 }, 0);
-  fadeUp(label(scenes.lights), 0.05);
-  rise(lightsLine, 0.1);
-  fadeUp(lightsSub, 0.35);
+  fadeIn(label(scenes.lights), 0.05);
+  fadeIn(lightsLine, 0.1);
+  fadeIn(lightsSub, 0.35);
   pods.forEach((pod, i) => {
     const at = 0.55 + i * 0.2;
     tl.to(pod, { "--on": 1, duration: 0.02, ease: "none" }, at);
@@ -114,7 +110,7 @@ export function initStory(ctx) {
   tl.to(pods, { "--on": 0, duration: 0.01, ease: "none" }, 1.7)
     .to(podLabels, { autoAlpha: 0, duration: 0.05 }, 1.7)
     .to([label(scenes.lights), lightsSub], { autoAlpha: 0, duration: 0.05 }, 1.7)
-    .to(lightsLine, { yPercent: -105, duration: 0.2, stagger: 0.02, ease: "power2.in" }, 1.72)
+    .to(lightsLine, { autoAlpha: 0, duration: 0.05 }, 1.72)
     .to(gantry, { y: "-70vh", duration: 0.3, ease: "power4.in" }, 1.78)
     .set(scenes.lights, { autoAlpha: 0 }, 2.1);
 
@@ -122,23 +118,23 @@ export function initStory(ctx) {
   tl.set(scenes.drivers, { autoAlpha: 1 }, 1.8)
     .fromTo(photo, { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.5, ease: "power3.inOut" }, 1.85)
     .fromTo(photoImg, { scale: 1.3 }, { scale: 1, duration: 1.2, ease: "none" }, 1.85);
-  fadeUp(label(scenes.drivers), 1.9);
-  tl.fromTo(driversLine, { xPercent: 25, autoAlpha: 0 }, { xPercent: 0, autoAlpha: 1, duration: 0.35, stagger: 0.05, ease: "power4.out" }, 1.95);
-  leave([label(scenes.drivers), ...driversLine], 2.9);
+  fadeIn(label(scenes.drivers), 1.9);
+  fadeIn(driversLine, 1.95);
+  leave([label(scenes.drivers), driversLine], 2.9);
   tl.to(photo, { clipPath: "inset(0% 0% 100% 0%)", duration: 0.4, ease: "power3.inOut" }, 2.9)
     .set(scenes.drivers, { autoAlpha: 0 }, 3.35);
 
   // 02 · the history
   tl.set(scenes.history, { autoAlpha: 1 }, 3.0);
-  fadeUp(label(scenes.history), 3.05);
-  rise(historyLine, 3.1);
+  fadeIn(label(scenes.history), 3.05);
+  fadeIn(historyLine, 3.1);
   tl.fromTo(yearEl, { autoAlpha: 0, yPercent: 15 }, { autoAlpha: 1, yPercent: 0, duration: 0.4 }, 3.1)
     .fromTo(ruler, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3 }, 3.15)
     .to(year, { value: 1991, duration: 0.5, ease: "power2.inOut", onUpdate: renderYear }, 3.45);
-  fadeUp(historySub, 3.8);
+  fadeIn(historySub, 3.8);
   // "and then it crawled"
   tl.to(year, { value: new Date().getFullYear(), duration: 0.9, ease: "none", onUpdate: renderYear }, 4.0);
-  leave([label(scenes.history), ...historyLine, historySub], 4.95);
+  leave([label(scenes.history), historyLine, historySub], 4.95);
   tl.to([yearEl, ruler], { autoAlpha: 0, duration: 0.3 }, 4.95)
     .set(scenes.history, { autoAlpha: 0 }, 5.3);
 
@@ -146,18 +142,18 @@ export function initStory(ctx) {
   tl.to(pin, { "--story-bg": "#1f3221", "--story-fg": "#e9dcc3", duration: 0.3, ease: "none" }, 5.0)
     .set(scenes.present, { autoAlpha: 1 }, 5.05)
     .fromTo(paper, { y: 140, rotation: 6, autoAlpha: 0 }, { y: 0, rotation: -1.2, autoAlpha: 1, duration: 0.5 }, 5.1);
-  fadeUp(label(scenes.present), 5.3);
-  rise(presentLine, 5.3);
-  fadeUp(presentBody, 5.5);
+  fadeIn(label(scenes.present), 5.3);
+  fadeIn(presentLine, 5.3);
+  fadeIn(presentBody, 5.5);
   tl.to(paper, { y: -90, rotation: -5, autoAlpha: 0, duration: 0.4, ease: "power2.in" }, 6.25)
     .set(scenes.present, { autoAlpha: 0 }, 6.65);
 
   // 04 · escape velocity
   tl.set(scenes.escape, { autoAlpha: 1 }, 6.35)
     .fromTo(earth, { top: "100%", rotation: 16, scale: 1 }, { top: "60%", rotation: 0, duration: 0.8, ease: "power2.out" }, 6.35);
-  fadeUp(label(scenes.escape), 6.5);
-  rise(escapeLine, 6.5);
-  fadeUp(escapeRest, 6.75);
+  fadeIn(label(scenes.escape), 6.5);
+  fadeIn(escapeLine, 6.5);
+  fadeIn(escapeRest, 6.75);
   // ...then it falls away beneath us
   tl.to(earth, { scale: 0.06, rotation: -30, duration: 1, ease: "power2.in" }, 7.3)
     .to({}, { duration: 0.3 }, 8.3);

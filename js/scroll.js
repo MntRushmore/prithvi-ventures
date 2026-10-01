@@ -1,6 +1,7 @@
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { isLive } from "./phase.js";
 
 export function initScroll({ reduced }) {
   if ("scrollRestoration" in history) history.scrollRestoration = "manual";
@@ -34,7 +35,7 @@ export function initNavTheme() {
   const nav = document.querySelector(".site-nav");
   if (!nav) return;
 
-  const sections = gsap.utils.toArray("[data-nav='light']");
+  const sections = gsap.utils.toArray("[data-nav='light']").filter(isLive);
   const active = new Set();
   sections.forEach((section) => {
     const parent = section.parentElement;

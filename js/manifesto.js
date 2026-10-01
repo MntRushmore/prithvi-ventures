@@ -1,9 +1,10 @@
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
+import { isLive } from "./phase.js";
 
 export function initManifesto() {
   const text = document.querySelector(".manifesto-text");
-  if (!text) return;
+  if (!isLive(text)) return;
 
   const split = SplitText.create(text, { type: "words" });
   // each word surfaces, from a shade just above the soil to sand

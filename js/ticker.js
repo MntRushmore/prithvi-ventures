@@ -1,11 +1,12 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { isLive } from "./phase.js";
 
 // Endless marquee that speeds up with scroll velocity and follows direction.
 const BASE_SPEED = 50 / 45; // percent of track width per second
 
 export function initTicker(ctx) {
-  document.querySelectorAll(".ticker-track").forEach((track) => {
+  gsap.utils.toArray(".ticker-track").filter(isLive).forEach((track) => {
     track.innerHTML += track.innerHTML;
     if (ctx.reduced) return;
 

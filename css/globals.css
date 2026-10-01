@@ -154,7 +154,7 @@ p {
 }
 
 .small {
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   font-weight: 500;
   letter-spacing: 0.01em;
   line-height: 1.35;
@@ -168,6 +168,17 @@ p {
   font-family: var(--serif);
   font-weight: 400;
   letter-spacing: 0;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* phase 1: the film alone, nothing to scroll to */
+html.is-still,
+html.is-still body {
+  height: 100%;
+  overflow: hidden;
 }
 
 .visually-hidden {

@@ -1,9 +1,10 @@
 import gsap from "gsap";
+import { isLive } from "./phase.js";
 
 export function initMenu(ctx) {
   const btn = document.querySelector(".menu-toggle-btn");
   const overlay = document.querySelector(".nav-overlay");
-  if (!btn || !overlay) return;
+  if (!isLive(btn) || !overlay) return;
 
   const nav = btn.closest(".site-nav");
   const labels = btn.querySelectorAll(".open-label, .close-label");

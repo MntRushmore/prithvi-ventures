@@ -1,11 +1,12 @@
 import gsap from "gsap";
+import { isLive } from "./phase.js";
 
 // Shared scroll reveals used across pages.
 export function initReveals(ctx) {
   if (ctx.reduced) return;
 
   [".team-teaser-grid .person", ".join-row", ".wall-name", ".person-body > *"].forEach((selector) => {
-    gsap.utils.toArray(selector).forEach((el, i) => {
+    gsap.utils.toArray(selector).filter(isLive).forEach((el, i) => {
       gsap.from(el, {
         y: 60,
         autoAlpha: 0,
@@ -18,7 +19,7 @@ export function initReveals(ctx) {
   });
 
   const wordmark = document.querySelector(".footer-wordmark");
-  if (wordmark) {
+  if (isLive(wordmark)) {
     gsap.fromTo(wordmark, { clipPath: "inset(100% 0% 0% 0%)", yPercent: 30 }, {
       clipPath: "inset(0% 0% 0% 0%)",
       yPercent: 0,

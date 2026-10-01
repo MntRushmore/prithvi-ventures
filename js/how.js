@@ -1,10 +1,11 @@
 import gsap from "gsap";
+import { isLive } from "./phase.js";
 
 // How we work: the section pins and each principle fills in, left to right,
 // as you scroll. Its line from the memo appears alongside while it fills.
 export function initHow() {
   const section = document.querySelector(".how");
-  if (!section) return;
+  if (!isLive(section)) return;
 
   const words = gsap.utils.toArray(".how-word", section);
   const descs = gsap.utils.toArray(".how-desc", section);

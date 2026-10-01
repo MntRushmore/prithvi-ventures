@@ -10,7 +10,7 @@
   <!-- nav -->
   <nav class="site-nav" aria-label="Primary">
     <a class="nav-logo" href="/" aria-label="Prithvi Ventures, home"><span class="logo-mark"></span></a>
-    <button class="menu-toggle-btn" type="button" aria-expanded="false" aria-controls="nav-overlay">
+    <button class="menu-toggle-btn" data-phase="2" type="button" aria-expanded="false" aria-controls="nav-overlay">
       <span class="menu-toggle-btn-wrapper">
         <span class="open-label">Menu</span>
         <span class="close-label">Close</span>
@@ -18,13 +18,13 @@
     </button>
   </nav>
 
-  <div class="nav-overlay" id="nav-overlay">
+  <div class="nav-overlay" id="nav-overlay" data-phase="2">
     <ul class="nav-items" role="list">
       <li class="nav-item" data-path="/"><a href="/">Home</a></li>
       <li class="nav-item" data-path="/#story"><a href="/#story">Story</a></li>
-      <li class="nav-item" data-path="/portfolio"><a href="/portfolio">Portfolio</a></li>
-      <li class="nav-item" data-path="/team"><a href="/team">Team</a></li>
-      <li class="nav-item" data-path="/contact"><a href="/contact">Contact</a></li>
+      <li class="nav-item" data-path="/portfolio" data-phase="4"><a href="/portfolio">Portfolio</a></li>
+      <li class="nav-item" data-path="/team" data-phase="4"><a href="/team">Team</a></li>
+      <li class="nav-item" data-path="/contact" data-phase="4"><a href="/contact">Contact</a></li>
     </ul>
     <div class="nav-footer small">
       <div class="nav-footer-item">

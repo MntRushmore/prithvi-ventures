@@ -3,6 +3,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import { inject } from "@vercel/analytics";
 
+import { applyPhase } from "./phase.js";
 import { initNavTheme, initScroll } from "./scroll.js";
 import { initTransition } from "./transition.js";
 import { initMenu } from "./menu.js";
@@ -32,11 +33,14 @@ const fontsReady = () =>
   Promise.race([document.fonts.ready, new Promise((r) => setTimeout(r, 1500))]);
 
 document.addEventListener("DOMContentLoaded", async () => {
+  if (!applyPhase()) return;
+
   document.querySelectorAll("[data-year]").forEach((el) => {
     el.textContent = new Date().getFullYear();
   });
 
   ctx.lenis = initScroll(ctx);
+  if (document.documentElement.classList.contains("is-still")) ctx.lenis.stop();
   initMenu(ctx);
 
   // Lines are split by rendered width, so wait for the real fonts. The page

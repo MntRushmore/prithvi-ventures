@@ -1,6 +1,6 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { SplitText } from "gsap/SplitText";
+import { createGlobe } from "./globe.js";
 
 // Fullscreen film reel. Captions advance on a timer drawn in the progress
 // segments. Each caption names the film (slide) it plays over via
@@ -11,67 +11,72 @@ export function initReel(ctx) {
   const reel = document.querySelector(".reel");
   if (!reel) return;
 
-  const frame = reel.querySelector(".reel-frame");
   const ui = reel.querySelector(".reel-ui");
   const slides = gsap.utils.toArray(".reel-slide", reel);
   const captions = gsap.utils.toArray(".reel-caption", reel);
   const segs = gsap.utils.toArray(".reel-seg", reel);
   const bars = segs.map((seg) => seg.querySelector(".reel-seg-bar i"));
-  const extras = captions.map((c) => c.querySelectorAll(".reel-kicker, .reel-sub, .reel-link"));
-  const splits = captions.map((c) =>
-    SplitText.create(c.querySelector(".reel-title"), { type: "lines", mask: "lines", autoSplit: true })
-  );
+
+  const hint = reel.querySelector(".reel-hint");
 
   const slideOf = (i) => Number(captions[i].dataset.slide ?? i) || 0;
   const duration = (i) => parseFloat(captions[i].dataset.duration) || 7;
-
-  // media > ken-burns wrapper > video
-  const kbs = slides.map((slide) => {
-    const video = slide.querySelector("video");
-    const kb = document.createElement("div");
-    kb.className = "reel-kb";
-    video.replaceWith(kb);
-    kb.appendChild(video);
-    return kb;
-  });
-
-  const media = (s) => slides[s].querySelector(".reel-media");
-  const video = (s) => slides[s].querySelector("video");
 
   let index = 0;
   let progress = null;
   let busy = false;
   let visible = true;
 
+  // media > ken-burns wrapper > video. A slide marked data-globe draws the
+  // live globe over its film, and plays the film if WebGL can't.
+  const players = [];
+  const kbs = slides.map((slide, s) => {
+    const video = slide.querySelector("video");
+    const kb = document.createElement("div");
+    kb.className = "reel-kb";
+    video.replaceWith(kb);
+    kb.appendChild(video);
+
+    const film = {
+      play() {
+        video.preload = "auto";
+        video.style.visibility = "";
+        video.play()?.catch(() => {});
+      },
+      pause: () => video.pause(),
+    };
+    players[s] = film;
+
+    if ("globe" in slide.dataset && !ctx.reduced) {
+      const globe = createGlobe(kb, video, {
+        onFail: () => {
+          players[s] = film;
+          if (hint) hint.hidden = true;
+          if (visible && slideOf(index) === s) film.play();
+        },
+        onGrab: () => hint && gsap.to(hint, { autoAlpha: 0, duration: 0.6, ease: "power1.out" }),
+      });
+      if (globe) {
+        players[s] = globe;
+        if (hint) hint.hidden = false;
+      }
+    }
+    return kb;
+  });
+
+  const media = (s) => slides[s].querySelector(".reel-media");
+
   const play = (s) => {
-    const v = video(s);
-    if (!v || ctx.reduced) return;
-    v.preload = "auto";
-    v.play()?.catch(() => {});
+    if (!ctx.reduced) players[s].play();
   };
-  const pause = (s) => video(s)?.pause();
+  const pause = (s) => players[s].pause();
 
-  const captionIn = (i, delay = 0) => {
-    const c = captions[i];
-    const title = c.querySelector(".reel-title");
-    gsap.set(c, { autoAlpha: 1 });
-    return gsap
-      .timeline({ delay })
-      .fromTo(title, { "--shiro": 0, "--shiro-origin": "left" }, { "--shiro": 1, duration: 1, ease: "expo.inOut" })
-      .fromTo(splits[i].lines, { yPercent: -105 }, { yPercent: 0, duration: 1.2, stagger: 0.08, ease: "expo.out" }, 0.4)
-      .fromTo(extras[i], { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.9, stagger: 0.07, ease: "power3.out" }, 0.6);
-  };
+  // Captions change like title cards: the old one fades out, a beat, the new
+  // one fades in whole.
+  const captionIn = (i, delay = 0) =>
+    gsap.fromTo(captions[i], { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.9, delay, ease: "power1.out" });
 
-  const captionOut = (i) => {
-    const c = captions[i];
-    const title = c.querySelector(".reel-title");
-    return gsap
-      .timeline({ onComplete: () => gsap.set(c, { autoAlpha: 0 }) })
-      .to(extras[i], { autoAlpha: 0, y: -10, duration: 0.4, stagger: 0.03, ease: "power2.in" }, 0)
-      .to(splits[i].lines, { yPercent: 105, duration: 0.6, stagger: 0.04, ease: "power3.in" }, 0)
-      .set(title, { "--shiro-origin": "right" }, 0)
-      .to(title, { "--shiro": 0, duration: 0.6, ease: "power3.inOut" }, 0.15);
-  };
+  const captionOut = (i) => gsap.to(captions[i], { autoAlpha: 0, duration: 0.5, ease: "power1.in" });
 
   const runProgress = (i) => {
     progress?.kill();
@@ -148,11 +153,6 @@ export function initReel(ctx) {
   const scrollOut = () =>
     gsap
       .timeline({ scrollTrigger: { trigger: reel, start: "top top", end: "bottom top", scrub: true } })
-      .fromTo(frame, { clipPath: "inset(0% 0% 0% 0%)" }, {
-        clipPath: "inset(6% 3% 6% 3%)",
-        ease: "none",
-        immediateRender: false,
-      }, 0)
       .to(reel.querySelector(".reel-slides"), { yPercent: 20, ease: "none" }, 0)
       .to(ui, { yPercent: -15, autoAlpha: 0, ease: "none" }, 0);
 
@@ -163,16 +163,14 @@ export function initReel(ctx) {
     return;
   }
 
-  gsap.set(frame, { clipPath: "inset(18% 30% 18% 30%)" });
-  gsap.set(".reel-progress", { autoAlpha: 0, y: 24 });
+  gsap.set(".reel-progress, .reel-foot", { autoAlpha: 0, y: 24 });
 
   ctx.revealed.then(() => {
     gsap
       .timeline()
-      .to(frame, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.7, ease: "expo.inOut" }, 0)
       .fromTo(kbs[slideOf(0)], { scale: 1.3 }, { scale: 1, duration: 2.1, ease: "expo.inOut" }, 0)
       .add(captionIn(0), 0.9)
-      .to(".reel-progress", { autoAlpha: 1, y: 0, duration: 1, ease: "expo.out" }, 1.3)
+      .to(".reel-progress, .reel-foot", { autoAlpha: 1, y: 0, duration: 1, stagger: 0.1, ease: "expo.out" }, 1.3)
       .call(() => {
         runProgress(0);
         scrollOut();

@@ -9,6 +9,11 @@
 3. Renders an orthographic globe turning a full 360 degrees: a seamless loop.
    Frame 0 faces --start-lon (80 = India), also saved as a poster .jpg.
 
+With --map-out it also saves the graded daylit map as an image; the site's
+live globe (js/globe.js) is drawn from it:
+
+    .venv/bin/python tools/earth-film/globe.py --map-out public/images/earth-map.webp --no-film
+
 Requires ffmpeg on PATH.
 """
 import argparse, json, math, subprocess, sys, urllib.request
@@ -120,6 +125,8 @@ def main():
     ap.add_argument("--out", default="public/video/earth-epic.mp4")
     ap.add_argument("--seconds", type=int, default=36)
     ap.add_argument("--start-lon", type=float, default=80)
+    ap.add_argument("--map-out", help="also save the graded map (equirectangular) here")
+    ap.add_argument("--no-film", action="store_true", help="skip rendering the film")
     args = ap.parse_args()
 
     cache = CACHE / f"mosaic-{args.date}.npy"
@@ -128,6 +135,11 @@ def main():
     else:
         mosaic = build_mosaic(fetch(args.date))
         np.save(cache, mosaic)
+
+    if args.map_out:
+        Image.fromarray((grade(mosaic) * 255).astype(np.uint8)).save(args.map_out, quality=82, method=6)
+    if args.no_film:
+        return
 
     W, H, FPS = 1920, 1080, 24
     sun = np.array([-0.62, 0.30, 0.72]); sun /= np.linalg.norm(sun)

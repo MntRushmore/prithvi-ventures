@@ -1,6 +1,7 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { EARTH_PHOTOS, HIGHLIGHTS } from "./data.js";
+import { isLive } from "./phase.js";
 
 // Pinned section: sector titles slide horizontally while portfolio cards fly
 // toward the camera in 3D (adapted from the template's featured work).
@@ -42,7 +43,7 @@ function cardMarkup() {
 
 export function initHighlights() {
   const section = document.querySelector(".highlights");
-  if (!section) return;
+  if (!isLive(section)) return;
 
   const cardsWrap = section.querySelector(".hl-cards");
   const titles = section.querySelector(".hl-titles");
