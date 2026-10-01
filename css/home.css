@@ -958,16 +958,19 @@
 }
 
 /* ─── responsive ───────────────────────────────────────────────── */
-@media (max-width: 1000px) {
-  /* on a phone the caption sits under the film, never over it: the caption
-     block takes the height of the longest caption, the film the rest */
+
+/* A phone held upright: the caption sits under the Earth, never over it, on
+   the same night sky. The caption block takes the height of the longest
+   caption and the frame takes the rest, with the whole Earth in it (globe.js
+   reads --globe). */
+@media (max-width: 1000px) and (orientation: portrait) {
   .reel {
     display: flex;
     flex-direction: column;
-    background: var(--soil);
   }
 
   .reel-frame {
+    --globe: whole;
     position: relative;
     inset: auto;
     flex: 1;
@@ -976,15 +979,25 @@
   .reel-ui {
     position: relative;
     inset: auto;
-    padding-top: 1.5rem;
+    padding-top: 0.5rem;
   }
 
-  .reel-caption {
-    align-self: start;
+  .reel-kicker {
+    margin-bottom: 1rem;
   }
 
   .reel-title {
-    font-size: clamp(2rem, 9vw, 2.6rem);
+    font-size: clamp(1.75rem, 7.6vw, 2.75rem);
+    max-width: 18ch;
+  }
+
+  .reel-sub {
+    margin-top: 1rem;
+    font-size: 1rem;
+  }
+
+  .reel-link {
+    margin-top: 1.25rem;
   }
 
   .reel-video {
@@ -999,9 +1012,88 @@
   }
 
   .reel-progress {
-    margin-top: 2rem;
+    margin-top: 1.75rem;
   }
 
+  .reel-foot {
+    margin-top: 1.25rem;
+  }
+}
+
+/* short phones, or phones whose browser bars take the height */
+@media (max-width: 1000px) and (orientation: portrait) and (max-height: 700px) {
+  .reel-kicker {
+    margin-bottom: 0.75rem;
+  }
+
+  .reel-title {
+    font-size: clamp(1.625rem, 7vw, 2rem);
+  }
+
+  .reel-sub {
+    margin-top: 0.75rem;
+    font-size: 0.9375rem;
+  }
+
+  .reel-link {
+    margin-top: 1rem;
+  }
+
+  .reel-progress {
+    margin-top: 1.25rem;
+  }
+
+  .reel-foot {
+    margin-top: 1rem;
+  }
+}
+
+/* a phone on its side keeps the wide layout, tightened to fit the height */
+@media (orientation: landscape) and (max-height: 560px) {
+  .reel-ui {
+    padding-top: 4.25rem;
+  }
+
+  .reel-kicker {
+    margin-bottom: 0.625rem;
+  }
+
+  .reel-title {
+    font-size: clamp(1.5rem, 7.5svh, 2.25rem);
+    max-width: 18ch;
+  }
+
+  .reel-sub {
+    margin-top: 0.625rem;
+    font-size: 0.9375rem;
+  }
+
+  .reel-link {
+    margin-top: 0.875rem;
+  }
+
+  .reel-progress {
+    margin-top: 1.25rem;
+  }
+
+  .reel-foot {
+    margin-top: 0.75rem;
+    white-space: nowrap;
+  }
+}
+
+/* ...and with the browser's bars showing there's room for the headline only */
+@media (orientation: landscape) and (max-height: 400px) {
+  .reel-ui {
+    padding-top: 3.75rem;
+  }
+
+  .reel-sub {
+    display: none;
+  }
+}
+
+@media (max-width: 1000px) {
   .reel-seg-name {
     display: none;
   }

@@ -76,20 +76,35 @@ function compile(gl, type, source) {
   return shader;
 }
 
-// Where the film puts the globe, so the live globe lands on the poster frame:
-// the film is 1920x1080 with the globe at (64%, 60%) and radius 60% of its
-// height, covered into the frame and shifted as the CSS shifts the video.
+// Where the globe and the star field (1920x1080, as the film saw it) sit.
+// Usually that's where the film puts them, so the live globe lands on the
+// poster frame: the globe at (64%, 60%) with radius 60% of the film's height,
+// covered into the frame and shifted as the CSS shifts the video. On a phone
+// held upright the CSS asks for the whole Earth instead (--globe: whole): it
+// sits in the middle of the frame, a little low to clear the logo.
 function placement(frame, video) {
   const w = frame.clientWidth;
   const h = frame.clientHeight;
+  const s = Math.max(w / 1920, h / 1080);
+  if (getComputedStyle(frame).getPropertyValue("--globe").trim() === "whole") {
+    return {
+      whole: true,
+      x: w / 2,
+      y: h * 0.53,
+      r: Math.min(0.4 * w, 0.39 * h),
+      field: { x: (w - 1920 * s) / 2, y: (h - 1080 * s) / 2, s },
+    };
+  }
   const style = getComputedStyle(video);
   const shift = new DOMMatrixReadOnly(style.transform === "none" ? undefined : style.transform).m41;
   const posX = parseFloat(style.objectPosition) / 100 || 0.5;
-  const s = Math.max(w / 1920, h / 1080);
+  const field = { x: (w - 1920 * s) * posX + shift, y: (h - 1080 * s) * 0.5, s };
   return {
-    x: (w - 1920 * s) * posX + shift + 0.64 * 1920 * s,
-    y: (h - 1080 * s) * 0.5 + 0.6 * 1080 * s,
+    whole: false,
+    x: field.x + 0.64 * 1920 * s,
+    y: field.y + 0.6 * 1080 * s,
     r: 0.6 * 1080 * s,
+    field,
   };
 }
 
@@ -197,13 +212,11 @@ export function createGlobe(container, video, { onFail, onGrab } = {}) {
 
   function paintStars() {
     const ctx = sky.getContext("2d");
-    const w = container.clientWidth;
-    const s = Math.max(w / 1920, container.clientHeight / 1080);
+    const { field } = place;
     ctx.clearRect(0, 0, sky.width, sky.height);
     for (const [sx, sy, mag, bv] of stars) {
-      // the same cover-and-shift as the film, so the sky sits still behind it
-      const x = (place.x - 0.64 * 1920 * s + sx * 1920 * s) * dpr;
-      const y = (place.y - 0.6 * 1080 * s + sy * 1080 * s) * dpr;
+      const x = (field.x + sx * 1920 * field.s) * dpr;
+      const y = (field.y + sy * 1080 * field.s) * dpr;
       if (x < -4 || y < -4 || x > sky.width + 4 || y > sky.height + 4) continue;
       const alpha = Math.min(1, Math.max(0.38, 10 ** (-0.4 * (mag - 3))));
       ctx.fillStyle = `rgba(${tint(bv)},${alpha.toFixed(2)})`;
@@ -223,6 +236,8 @@ export function createGlobe(container, video, { onFail, onGrab } = {}) {
     canvas.height = sky.height = Math.round(h * dpr);
     gl.viewport(0, 0, canvas.width, canvas.height);
     place = placement(container, video);
+    // the film's poster crops the Earth, so it can't stand in for the whole one
+    if (!ready) video.style.visibility = place.whole ? "hidden" : "";
     if (ready) paintStars();
     if (ready && !running) draw();
   };
@@ -242,6 +257,7 @@ export function createGlobe(container, video, { onFail, onGrab } = {}) {
   // grab and spin
   let drag = null;
   const onGlobe = (event) => {
+    if (place.whole) return true; // the frame holds nothing else, so any touch spins it
     const rect = canvas.getBoundingClientRect();
     const scale = rect.width / container.clientWidth || 1; // the intro zoom
     const x = (event.clientX - rect.left) / scale - place.x;
