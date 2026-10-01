@@ -1,0 +1,371 @@
+/* ─── inner page hero ──────────────────────────────────────────── */
+.page-hero {
+  position: relative;
+  min-height: 92svh;
+  padding: 8rem var(--gutter) var(--gutter);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 2.5rem;
+}
+
+.page-hero h1,
+.about-hero h1,
+.contact-hero h1 {
+  font-size: clamp(5rem, 18vw, 20rem);
+}
+
+.page-hero-lede {
+  max-width: 34rem;
+  font-size: clamp(1.15rem, 1.5vw, 1.4rem);
+}
+
+.page-hero-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+  color: var(--soft);
+}
+
+/* ─── portfolio ────────────────────────────────────────────────── */
+.pf {
+  padding: 4rem var(--gutter) 10rem;
+  overflow-x: clip;
+}
+
+.pf-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.75rem;
+  margin-bottom: 3rem;
+}
+
+.pf-filter button {
+  font-weight: 500;
+  color: var(--soft);
+  padding-bottom: 0.2em;
+  background: linear-gradient(currentColor, currentColor) no-repeat 0 100% / 0% 1px;
+  transition: color 0.3s, background-size 0.5s var(--ease);
+}
+
+.pf-filter button:hover {
+  color: var(--fg);
+}
+
+.pf-filter button.is-active {
+  color: var(--fg);
+  background-size: 100% 1px;
+}
+
+.pf-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4rem 1.25rem;
+}
+
+.pf-item {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.pf-media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  padding: 1.75rem 2rem;
+  overflow: hidden;
+  background: var(--c);
+  color: var(--ci);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.pf-media-name {
+  font-family: var(--serif);
+  font-size: clamp(4rem, 8.5vw, 9.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  transition: transform 0.9s var(--ease);
+}
+
+.pf-item:hover .pf-media-name {
+  transform: translateX(0.5rem);
+}
+
+.pf-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.pf-row .small {
+  color: var(--soft);
+  transition: color 0.3s;
+}
+
+.pf-item:hover .pf-row .small {
+  color: var(--ochre);
+}
+
+.pf-item p.pf-quote {
+  max-width: 36rem;
+}
+
+/* ─── rest of the portfolio ────────────────────────────────────── */
+.wall {
+  padding: 12rem var(--gutter);
+}
+
+.wall h2 {
+  margin-bottom: 4rem;
+}
+
+.wall-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 1.25rem;
+  border-top: 1px solid var(--line);
+}
+
+.wall-name {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--serif);
+  font-size: clamp(1.3rem, 1.8vw, 1.9rem);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+/* ─── team ─────────────────────────────────────────────────────── */
+.about-hero {
+  position: relative;
+  min-height: 100svh;
+  padding: 8rem var(--gutter) var(--gutter);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 2.5rem;
+  overflow: hidden;
+}
+
+.about-hero h1 {
+  position: relative;
+  z-index: 2;
+}
+
+.about-hero .page-hero-lede {
+  position: relative;
+  z-index: 2;
+  max-width: 40rem;
+}
+
+.about-hero-portrait {
+  position: absolute;
+  width: clamp(10rem, 16vw, 15rem);
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--soil-2);
+  -webkit-mask: var(--arch) no-repeat 0 0 / 100% 100%;
+  mask: var(--arch) no-repeat 0 0 / 100% 100%;
+}
+
+.about-hero-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1);
+}
+
+.about-hero-portrait--1 {
+  right: calc(var(--gutter) + 18vw);
+  top: 12%;
+}
+
+.about-hero-portrait--2 {
+  right: var(--gutter);
+  top: 22%;
+}
+
+.people {
+  padding: 10rem var(--gutter);
+  display: flex;
+  flex-direction: column;
+  gap: 10rem;
+}
+
+.person-row {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 4rem;
+  align-items: start;
+}
+
+.person-photo {
+  position: sticky;
+  top: 7rem;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--soil-2);
+  -webkit-mask: var(--arch) no-repeat 0 0 / 100% 100%;
+  mask: var(--arch) no-repeat 0 0 / 100% 100%;
+}
+
+.person-photo img {
+  width: 100%;
+  height: 112%;
+  object-fit: cover;
+  filter: grayscale(1);
+  transition: filter 1s var(--ease);
+  will-change: transform;
+}
+
+.person-row:hover .person-photo img {
+  filter: grayscale(0);
+}
+
+.person-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.person-body h2 {
+  margin-bottom: 0.5rem;
+}
+
+.person-body .small {
+  color: var(--ochre);
+}
+
+.person-body p:not(.small) {
+  max-width: 40rem;
+  font-size: clamp(1.1rem, 1.3vw, 1.3rem);
+}
+
+.person-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.goal {
+  padding: 14rem var(--gutter);
+}
+
+.goal .small {
+  margin-bottom: 2rem;
+  color: var(--soft);
+}
+
+.goal-text {
+  max-width: 70rem;
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 4.4vw, 5rem);
+  letter-spacing: -0.025em;
+  line-height: 1.08;
+}
+
+/* ─── contact ──────────────────────────────────────────────────── */
+.contact-hero {
+  position: relative;
+  min-height: 100svh;
+  padding: 8rem var(--gutter) var(--gutter);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 2.5rem;
+  overflow: hidden;
+}
+
+.contact-hero > * {
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.contact-hero a {
+  pointer-events: auto;
+}
+
+.contact-links {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.25rem;
+  border-top: 1px solid var(--line);
+  padding-top: 1.25rem;
+}
+
+.contact-link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: color 0.3s;
+}
+
+.contact-link:hover {
+  color: var(--ochre);
+}
+
+.contact-link .small {
+  color: var(--soft);
+}
+
+.contact-link-title {
+  font-family: var(--serif);
+  font-size: clamp(1.3rem, 1.8vw, 1.9rem);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.trail-img {
+  position: absolute;
+  z-index: 1;
+  width: 13rem;
+  aspect-ratio: 1;
+  object-fit: cover;
+  clip-path: circle(48.4%);
+  pointer-events: none;
+  will-change: transform;
+}
+
+@media (max-width: 1000px) {
+  .pf-grid {
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+  }
+
+  .wall-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .about-hero-portrait {
+    display: none;
+  }
+
+  .person-row {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .person-photo {
+    position: relative;
+    top: 0;
+  }
+
+  .people {
+    gap: 6rem;
+  }
+
+  .contact-links {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 2rem;
+  }
+}

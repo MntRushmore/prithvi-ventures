@@ -1,0 +1,250 @@
+/* page transition: five curtains in earth colours */
+.transition {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  pointer-events: none;
+}
+
+.transition-overlay {
+  position: absolute;
+  inset: 0;
+  transform: scaleY(1);
+  transform-origin: top;
+  will-change: transform;
+}
+
+.transition-overlay.overlay-1 { background-color: var(--clay); }
+.transition-overlay.overlay-2 { background-color: var(--ochre); }
+.transition-overlay.overlay-3 { background-color: var(--forest); }
+.transition-overlay.overlay-4 { background-color: var(--soil-2); }
+.transition-overlay.overlay-5 {
+  background-color: var(--soil);
+  display: grid;
+  place-items: center;
+}
+
+.transition-mark {
+  width: min(40vw, 260px);
+  aspect-ratio: 1604 / 685;
+  color: var(--sand);
+}
+
+/* logo drawn from the traced wordmark */
+.logo-mark {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: currentColor;
+  -webkit-mask: url("/images/brand/logo-word.svg") no-repeat center / contain;
+  mask: url("/images/brand/logo-word.svg") no-repeat center / contain;
+}
+
+/* nav: sand, or soil over a light section */
+.site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: var(--gutter);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+  pointer-events: none;
+  color: var(--sand);
+  transition: transform 0.7s var(--ease), color 0.5s var(--ease);
+}
+
+.site-nav > * {
+  pointer-events: auto;
+}
+
+.site-nav.is-hidden {
+  transform: translateY(-120%);
+}
+
+.site-nav.on-light:not(.is-menu-open) {
+  color: var(--soil);
+}
+
+.nav-logo {
+  display: block;
+  width: 108px;
+  aspect-ratio: 1604 / 685;
+}
+
+.menu-toggle-btn {
+  font-weight: 500;
+  font-size: 0.9375rem;
+}
+
+.menu-toggle-btn-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 1.2em;
+  overflow: hidden;
+  line-height: 1.2;
+}
+
+/* nav overlay */
+.nav-overlay {
+  --soft: #a9b199;
+  position: fixed;
+  inset: 0;
+  height: 100svh;
+  background-color: var(--forest);
+  color: var(--sand);
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 90;
+}
+
+.nav-items {
+  position: absolute;
+  top: 47%;
+  left: var(--gutter);
+  right: var(--gutter);
+  transform: translateY(-50%);
+  list-style: none;
+}
+
+.nav-item {
+  overflow: hidden;
+}
+
+.nav-item a {
+  display: block;
+  width: fit-content;
+  font-family: var(--serif);
+  font-size: clamp(3rem, min(10vw, 13svh), 9rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  padding-bottom: 0.04em;
+  transform: translateY(100%);
+  will-change: transform;
+  transition: color 0.4s var(--ease);
+}
+
+.nav-item.active a {
+  color: var(--ochre);
+}
+
+.nav-items:hover .nav-item a {
+  color: var(--soft);
+}
+
+.nav-items .nav-item a:hover {
+  color: var(--sand);
+}
+
+.nav-footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: var(--gutter);
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.nav-footer-item {
+  display: flex;
+  gap: 1.5rem;
+  transform: translateY(100%);
+  opacity: 0;
+}
+
+/* footer: forest, edged with the temple border */
+.site-footer {
+  position: relative;
+}
+
+/* the border sits on the section above, so it takes that section's ground */
+.site-footer > .kinar {
+  position: relative;
+  margin-top: -1.75rem;
+}
+
+.footer-container {
+  padding: 5rem var(--gutter) var(--gutter);
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+  overflow: hidden;
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 2fr repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.footer-top h3 {
+  max-width: 12ch;
+  font-size: clamp(2rem, 3vw, 3.25rem);
+  font-weight: 400;
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer-col .small {
+  color: var(--soft);
+  margin-bottom: 0.5rem;
+}
+
+.footer-col a {
+  width: fit-content;
+  transition: color 0.3s;
+}
+
+.footer-col a:hover {
+  color: var(--ochre);
+}
+
+.footer-wordmark {
+  width: 100%;
+  aspect-ratio: 1604 / 685;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+}
+
+@media (max-width: 1000px) {
+  .nav-logo {
+    width: 88px;
+  }
+
+  .nav-footer {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .footer-container {
+    padding-top: 3.5rem;
+  }
+
+  .footer-top {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footer-top > :first-child {
+    grid-column: 1 / -1;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+  }
+}

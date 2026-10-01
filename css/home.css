@@ -1,0 +1,1108 @@
+/* ─── reel ─────────────────────────────────────────────────────── */
+.reel {
+  position: relative;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.reel-frame {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #020504;
+  clip-path: inset(0% 0% 0% 0%);
+  will-change: clip-path;
+}
+
+.reel-slides {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+.reel-slide {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+.reel-media,
+.reel-kb {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+.reel-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.reel-ui {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  padding: 7rem var(--gutter) var(--gutter);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  pointer-events: none;
+}
+
+.reel-ui a,
+.reel-ui button {
+  pointer-events: auto;
+}
+
+.reel-captions {
+  display: grid;
+}
+
+.reel-caption {
+  grid-area: 1 / 1;
+  align-self: end;
+  visibility: hidden;
+  max-width: 56rem;
+}
+
+.reel-kicker {
+  margin-bottom: 1.5rem;
+  color: var(--soft);
+}
+
+.reel-title {
+  font-size: clamp(2.5rem, 5vw, 5.75rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  max-width: 15ch;
+}
+
+.reel-sub {
+  max-width: 30rem;
+  margin-top: 1.5rem;
+  color: var(--soft);
+}
+
+.reel-link {
+  margin-top: 1.75rem;
+}
+
+.reel-progress {
+  display: grid;
+  grid-template-columns: repeat(var(--count, 4), minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 3rem;
+}
+
+.reel-seg {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  text-align: left;
+  color: var(--soft);
+  transition: color 0.5s var(--ease);
+}
+
+.reel-seg:hover,
+.reel-seg.is-active {
+  color: var(--fg);
+}
+
+.reel-seg-bar {
+  position: relative;
+  height: 1px;
+  background: var(--line);
+  overflow: hidden;
+}
+
+.reel-seg-bar i {
+  position: absolute;
+  inset: 0;
+  background: var(--fg);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+/* ─── pṛthvī ───────────────────────────────────────────────────── */
+.meaning {
+  position: relative;
+  height: 100svh;
+  padding: 5.5rem var(--gutter) 7rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.meaning-earth {
+  position: relative;
+  width: min(40vw, 48vh);
+  aspect-ratio: 1;
+  will-change: transform;
+}
+
+.meaning-earth img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  clip-path: circle(48.4%);
+}
+
+.meaning-word {
+  position: relative;
+  z-index: 2;
+  font-size: clamp(5rem, 13vw, 12rem);
+  line-height: 1.2;
+  color: var(--ochre);
+  will-change: transform;
+}
+
+.meaning-caption {
+  position: absolute;
+  left: var(--gutter);
+  right: var(--gutter);
+  bottom: var(--gutter);
+  z-index: 3;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  align-items: end;
+  gap: 2rem;
+}
+
+.meaning-quote {
+  font-family: var(--serif);
+  font-size: clamp(1.4rem, 2vw, 2.1rem);
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  text-align: center;
+}
+
+.meaning-caption .small:last-child {
+  text-align: right;
+}
+
+/* ─── kunal's story ────────────────────────────────────────────── */
+.story {
+  position: relative;
+}
+
+.story-pin {
+  --story-bg: #211a14;
+  --story-fg: #e9dcc3;
+  position: relative;
+  height: 100svh;
+  overflow: hidden;
+  background: var(--story-bg);
+  color: var(--story-fg);
+}
+
+.story-head {
+  position: absolute;
+  top: 6.5rem;
+  left: var(--gutter);
+  right: var(--gutter);
+  z-index: 6;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  visibility: hidden;
+}
+
+.chapter-label {
+  color: color-mix(in srgb, var(--story-fg) 60%, var(--story-bg));
+}
+
+.story-pin h2 {
+  line-height: 1.06;
+}
+
+/* 01 · an F1 start gantry: five pods, two lamps each */
+.gantry {
+  position: absolute;
+  top: 20%;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: clamp(0.6rem, 2vw, 2.25rem);
+}
+
+.pod {
+  --on: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+  width: clamp(3.4rem, 9.5vw, 10rem);
+}
+
+.pod-body {
+  width: 100%;
+  padding: 0.7rem;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.4rem, 0.8vw, 0.9rem);
+  border-radius: 0.5rem;
+  background: var(--night);
+}
+
+.lamp {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #2e2620;
+}
+
+.lamp::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--sindoor);
+  opacity: var(--on);
+}
+
+.pod-label {
+  min-height: 2.7em;
+  text-align: center;
+  opacity: 0;
+}
+
+.lights-copy {
+  position: absolute;
+  left: var(--gutter);
+  right: var(--gutter);
+  bottom: 9vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+  text-align: center;
+}
+
+.lights-line {
+  max-width: 24ch;
+  font-size: clamp(2rem, 3.6vw, 4rem);
+}
+
+/* 01b · lights out: his portrait in an arch */
+.drivers-photo {
+  position: absolute;
+  top: calc(50% + 2rem);
+  right: calc(var(--gutter) + 5vw);
+  height: min(72vh, 46vw);
+  aspect-ratio: 4 / 5;
+  translate: 0 -50%;
+  overflow: hidden;
+  background: var(--soil-2);
+  -webkit-mask: var(--arch) no-repeat 0 0 / 100% 100%;
+  mask: var(--arch) no-repeat 0 0 / 100% 100%;
+}
+
+.drivers-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 30% 30%;
+  filter: grayscale(1) contrast(1.05);
+  will-change: transform;
+}
+
+.drivers-photo figcaption {
+  z-index: 1;
+  position: absolute;
+  left: 1.25rem;
+  bottom: 1.25rem;
+  color: var(--sand);
+}
+
+.drivers-copy {
+  position: absolute;
+  top: 50%;
+  left: var(--gutter);
+  width: min(46vw, 46rem);
+  transform: translateY(-40%);
+}
+
+.drivers-line {
+  margin-top: 1.25rem;
+  font-size: clamp(2.2rem, 3.6vw, 4.25rem);
+}
+
+/* 02 · the history: year counter over a timeline ruler */
+.history-copy {
+  position: absolute;
+  top: 22vh;
+  left: var(--gutter);
+  width: min(50vw, 48rem);
+}
+
+.history-line {
+  margin: 1.25rem 0 1.5rem;
+  font-size: clamp(2rem, 3.4vw, 3.9rem);
+}
+
+.history-sub {
+  max-width: 30rem;
+  font-size: clamp(1.05rem, 1.3vw, 1.3rem);
+}
+
+.history-year {
+  position: absolute;
+  right: var(--gutter);
+  bottom: calc(6vh + 4rem);
+  font-family: var(--serif);
+  font-size: 22vw;
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+  font-variant-numeric: lining-nums tabular-nums;
+  color: var(--ochre);
+}
+
+.ruler {
+  position: absolute;
+  left: var(--gutter);
+  right: var(--gutter);
+  bottom: 6vh;
+  height: 2.75rem;
+}
+
+.ruler::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: currentColor;
+}
+
+.tick {
+  position: absolute;
+  bottom: 0;
+  width: 1px;
+  height: 0.45rem;
+  background: currentColor;
+}
+
+.tick--decade {
+  height: 0.9rem;
+}
+
+.tick--event {
+  height: 2.75rem;
+}
+
+.tick-label {
+  position: absolute;
+  bottom: 1.3rem;
+  transform: translateX(-50%);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: color-mix(in srgb, var(--story-fg) 60%, var(--story-bg));
+  white-space: nowrap;
+}
+
+.tick-label--event {
+  bottom: 3.1rem;
+  color: var(--story-fg);
+}
+
+.ruler-marker {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  height: 2.75rem;
+  margin-left: -1px;
+  background: var(--sindoor);
+}
+
+.ruler-marker::after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: -4px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--sindoor);
+}
+
+/* 03 · the present: his torn note, on forest */
+.present-wrap {
+  position: absolute;
+  top: 50%;
+  left: var(--gutter);
+  width: min(56vw, 52rem);
+  transform: translateY(-45%);
+}
+
+.present-paper {
+  padding: 2.75rem 2.5rem 3rem;
+  background:
+    repeating-linear-gradient(to bottom, transparent 0 2.05rem, #d2c2a3 2.05rem calc(2.05rem + 1px)),
+    var(--sand);
+  color: var(--soil);
+}
+
+.present-paper .chapter-label {
+  color: #6e5f4b;
+}
+
+.present-line {
+  margin: 1rem 0 1.25rem;
+  font-size: clamp(2rem, 3.2vw, 3.5rem);
+}
+
+.present-body {
+  max-width: 36rem;
+  font-size: clamp(1.05rem, 1.25vw, 1.25rem);
+}
+
+.present-body + .present-body {
+  margin-top: 1rem;
+}
+
+/* 04 · escape velocity */
+.story-earth {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  width: max(120vw, 120vh);
+  aspect-ratio: 1;
+  will-change: transform;
+}
+
+.story-earth img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  clip-path: circle(48.4%);
+}
+
+.escape-copy {
+  position: absolute;
+  top: 26%;
+  left: var(--gutter);
+  width: min(54vw, 50rem);
+}
+
+.escape-line {
+  margin: 1.25rem 0 1.5rem;
+  font-size: clamp(2.2rem, 3.8vw, 4.25rem);
+}
+
+.escape-body {
+  max-width: 34rem;
+  font-size: clamp(1.05rem, 1.3vw, 1.3rem);
+}
+
+.escape-sign {
+  margin-top: 2rem;
+  font-weight: 500;
+}
+
+.story-progress {
+  position: absolute;
+  top: 50%;
+  right: var(--gutter);
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.9rem;
+  transform: translateY(-50%);
+}
+
+.story-tick {
+  width: 1.5rem;
+  height: 1px;
+  background: color-mix(in srgb, var(--story-fg) 35%, var(--story-bg));
+  transition: width 0.6s var(--ease);
+}
+
+.story-tick.is-active {
+  width: 3rem;
+  background: var(--story-fg);
+}
+
+/* ─── what we do ───────────────────────────────────────────────── */
+.manifesto {
+  padding: 24vh var(--gutter);
+}
+
+.manifesto-inner {
+  max-width: 78rem;
+}
+
+.manifesto .small {
+  margin-bottom: 2.5rem;
+  color: var(--soft);
+}
+
+.manifesto-text {
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 4.4vw, 5rem);
+  letter-spacing: -0.025em;
+  line-height: 1.08;
+}
+
+.manifesto-attr {
+  margin-top: 3rem;
+}
+
+/* ─── portfolio highlights (pinned, 3d) ────────────────────────── */
+.highlights {
+  position: relative;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.hl-cards {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200vw;
+  height: 200vh;
+  transform: translate(-50%, -50%);
+  transform-style: preserve-3d;
+  perspective: 500px;
+}
+
+.hl-card {
+  position: absolute;
+  width: 800px;
+  height: 450px;
+  padding: 2rem 2.25rem;
+  overflow: hidden;
+  background: var(--c);
+  color: var(--ci);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.hl-card-name {
+  font-family: var(--serif);
+  font-size: 8.5rem;
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+}
+
+/* the Earth photographs fly through as discs, not cards */
+.hl-card--image {
+  width: 450px;
+  padding: 0;
+  background: none;
+}
+
+.hl-card--image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  clip-path: circle(48.4%);
+}
+
+.hl-titles {
+  position: relative;
+  width: 500vw;
+  height: 100svh;
+  display: flex;
+  z-index: 10;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.hl-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.25rem;
+  text-align: center;
+}
+
+.hl-panel h2 {
+  font-size: clamp(5rem, 14vw, 14rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+
+.hl-panel p {
+  font-weight: 500;
+}
+
+.hl-indicator {
+  position: absolute;
+  top: 50%;
+  right: var(--gutter);
+  z-index: 12;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  transform: translateY(-50%);
+}
+
+.hl-indicator .indicator {
+  width: 1.25rem;
+  height: 1px;
+  background: var(--line);
+  transition: background-color 0.3s;
+}
+
+.hl-indicator .indicator.is-on {
+  background: var(--fg);
+}
+
+.hl-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: var(--gutter);
+  z-index: 12;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ─── how we work: principles fill in as you scroll ────────────── */
+.how {
+  --row: min(8.2vw, 14vh);
+  position: relative;
+  height: 100svh;
+  padding: 7rem var(--gutter) var(--gutter);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.how-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.how-intro {
+  max-width: 30rem;
+  font-size: clamp(1.05rem, 1.3vw, 1.3rem);
+}
+
+.how-list {
+  list-style: none;
+  margin-bottom: 4vh;
+}
+
+.how-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+}
+
+.how-num {
+  min-width: 2ch;
+  padding-top: 1.1em;
+  color: var(--soft);
+  transition: color 0.4s;
+}
+
+.how-num.is-active {
+  color: var(--ochre);
+}
+
+.how-word {
+  --fill: 0;
+  position: relative;
+  display: block;
+  font-family: var(--serif);
+  font-size: var(--row);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  color: #36503b;
+  white-space: nowrap;
+}
+
+.how-word::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  color: var(--sand);
+  clip-path: inset(0 calc((1 - var(--fill)) * 100%) 0 0);
+}
+
+.how-desc {
+  position: absolute;
+  right: var(--gutter);
+  bottom: calc(var(--gutter) + 4vh + var(--row) * 2.2);
+  width: min(24vw, 24rem);
+  font-size: clamp(1.1rem, 1.4vw, 1.4rem);
+  line-height: 1.4;
+  opacity: 0;
+}
+
+/* ─── team teaser ──────────────────────────────────────────────── */
+.team-teaser {
+  padding: 16vh var(--gutter);
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.team-teaser-head {
+  position: sticky;
+  top: 7rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.team-teaser-head .small {
+  color: var(--soft);
+}
+
+.team-teaser-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+.team-teaser-grid .person:nth-child(2) {
+  margin-top: 8rem;
+}
+
+.person {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.person-img {
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--soil-2);
+  -webkit-mask: var(--arch) no-repeat 0 0 / 100% 100%;
+  mask: var(--arch) no-repeat 0 0 / 100% 100%;
+}
+
+.person-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1);
+  transform: scale(1.04);
+  transition: filter 0.9s var(--ease), transform 1.4s var(--ease);
+}
+
+.person:hover .person-img img {
+  filter: grayscale(0);
+  transform: scale(1);
+}
+
+.person-name {
+  font-family: var(--serif);
+  font-size: clamp(1.5rem, 2vw, 2rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+/* ─── join us ──────────────────────────────────────────────────── */
+.join {
+  padding: 16vh var(--gutter);
+}
+
+.join h2 {
+  margin-bottom: 4rem;
+}
+
+.join-list {
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+
+.join-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 2fr auto;
+  align-items: baseline;
+  gap: 2rem;
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--line);
+  isolation: isolate;
+  transition: padding 0.6s var(--ease);
+}
+
+.join-row::before {
+  content: "";
+  position: absolute;
+  inset: 0 calc(var(--gutter) * -1);
+  z-index: -1;
+  background: var(--forest);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.6s var(--ease);
+}
+
+.join-row:hover {
+  padding-left: 1rem;
+}
+
+.join-row:hover::before {
+  transform: scaleY(1);
+}
+
+.join-row .small {
+  color: var(--soft);
+}
+
+.join-row-title {
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 3.4vw, 3.5rem);
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+.join-row-arrow {
+  font-size: clamp(1.5rem, 2.4vw, 2.5rem);
+}
+
+/* ─── ticker ───────────────────────────────────────────────────── */
+.ticker {
+  padding: 4rem 0 4.5rem;
+  overflow: hidden;
+}
+
+.ticker-track {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  width: max-content;
+  will-change: transform;
+}
+
+.ticker-track span {
+  font-family: var(--serif);
+  font-size: clamp(3rem, 7vw, 7.5rem);
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.ticker-track .dot {
+  color: var(--clay);
+}
+
+/* ─── responsive ───────────────────────────────────────────────── */
+@media (max-width: 1000px) {
+  /* on a phone the film takes the top half and the caption sits below it */
+  .reel-frame {
+    background: var(--soil);
+  }
+
+  .reel-slides {
+    bottom: 46%;
+  }
+
+  .reel-ui {
+    padding-top: 6rem;
+  }
+
+  .reel-video {
+    object-position: 66% 50%;
+  }
+
+  .reel-seg-name {
+    display: none;
+  }
+
+  .meaning {
+    padding-bottom: 10rem;
+  }
+
+  .meaning-earth {
+    width: min(76vw, 44vh);
+  }
+
+  .meaning-caption {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 0.75rem;
+  }
+
+  .meaning-caption .small,
+  .meaning-caption .small:last-child {
+    text-align: center;
+  }
+
+  .meaning-quote {
+    grid-row: 1;
+  }
+
+  .story-head {
+    top: 5.25rem;
+  }
+
+  .story-progress {
+    display: none;
+  }
+
+  .gantry {
+    top: 24%;
+  }
+
+  .pod {
+    width: 16vw;
+  }
+
+  .pod-body {
+    padding: 0.4rem;
+    border-radius: 0.35rem;
+  }
+
+  .pod-label {
+    font-size: 0.625rem;
+  }
+
+  .drivers-photo {
+    top: 8.5rem;
+    right: auto;
+    left: 50%;
+    height: 40vh;
+    translate: -50% 0;
+  }
+
+  .drivers-copy,
+  .history-copy,
+  .escape-copy,
+  .present-wrap {
+    top: auto;
+    bottom: 12vh;
+    width: auto;
+    right: calc(var(--gutter) + 2rem);
+    transform: none;
+  }
+
+  .drivers-copy {
+    bottom: 6vh;
+  }
+
+  .history-copy {
+    top: 11rem;
+    bottom: auto;
+  }
+
+  .history-year {
+    font-size: 34vw;
+    bottom: calc(6vh + 3.5rem);
+  }
+
+  .tick-label:not(.tick-label--event) {
+    display: none;
+  }
+
+  .escape-copy {
+    top: 10rem;
+    bottom: auto;
+  }
+
+  .present-paper {
+    padding: 1.75rem 1.5rem 2rem;
+  }
+
+  .highlights {
+    height: auto;
+    padding: 6rem 0 3rem;
+  }
+
+  .hl-cards,
+  .hl-indicator {
+    display: none;
+  }
+
+  .hl-titles {
+    width: 100%;
+    height: auto;
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  .hl-footer {
+    position: relative;
+    margin-top: 3rem;
+  }
+
+  .how {
+    height: auto;
+    gap: 3rem;
+  }
+
+  .how-head {
+    flex-direction: column;
+  }
+
+  .how-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2.25rem;
+  }
+
+  .how-row {
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+  }
+
+  .how-num {
+    padding-top: 0.6em;
+  }
+
+  .how-word {
+    --fill: 1;
+    font-size: 13vw;
+    white-space: normal;
+  }
+
+  .how-desc {
+    position: static;
+    width: 100%;
+    opacity: 1;
+  }
+
+  .team-teaser {
+    grid-template-columns: 1fr;
+  }
+
+  .team-teaser-head {
+    position: static;
+  }
+
+  .team-teaser-grid .person:nth-child(2) {
+    margin-top: 3rem;
+  }
+
+  .join-row {
+    grid-template-columns: 1fr auto;
+    gap: 0.5rem 1rem;
+  }
+
+  .join-row .small {
+    grid-column: 1 / -1;
+  }
+}

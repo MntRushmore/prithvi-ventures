@@ -1,0 +1,8 @@
+.gstack/
+node_modules/
+dist/
+.venv/
+tools/earth-film/.cache/
+*.log
+.env*
+.DS_Store
