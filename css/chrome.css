@@ -26,18 +26,36 @@
 
 .transition-mark {
   width: min(40vw, 260px);
-  aspect-ratio: 1604 / 685;
+  aspect-ratio: 3208 / 1476;
   color: var(--sand);
 }
 
-/* logo drawn from the traced wordmark */
+/* logo drawn from the traced lockup: the word, and "Ventures" under it in a
+   softer tone, as in the two greens of the original */
 .logo-mark {
+  position: relative;
   display: block;
   width: 100%;
   height: 100%;
+}
+
+.logo-mark::before,
+.logo-mark::after {
+  content: "";
+  position: absolute;
+  inset: 0;
   background-color: currentColor;
-  -webkit-mask: url("/images/brand/logo-word.svg") no-repeat center / contain;
-  mask: url("/images/brand/logo-word.svg") no-repeat center / contain;
+  -webkit-mask: var(--part) no-repeat center / contain;
+  mask: var(--part) no-repeat center / contain;
+}
+
+.logo-mark::before {
+  --part: url("/images/brand/logo-word.svg");
+}
+
+.logo-mark::after {
+  --part: url("/images/brand/logo-ventures.svg");
+  opacity: 0.72;
 }
 
 /* nav: sand, or soil over a light section */
@@ -70,8 +88,8 @@
 
 .nav-logo {
   display: block;
-  width: 108px;
-  aspect-ratio: 1604 / 685;
+  width: 116px;
+  aspect-ratio: 3208 / 1476;
 }
 
 .menu-toggle-btn {
@@ -211,7 +229,7 @@
 
 .footer-wordmark {
   width: 100%;
-  aspect-ratio: 1604 / 685;
+  aspect-ratio: 3208 / 1476;
 }
 
 .footer-bottom {
@@ -224,7 +242,7 @@
 
 @media (max-width: 1000px) {
   .nav-logo {
-    width: 88px;
+    width: 96px;
   }
 
   .nav-footer {
