@@ -30,8 +30,8 @@
   color: var(--sand);
 }
 
-/* logo drawn from the traced lockup: the word, and "Ventures" under it in a
-   softer tone, as in the two greens of the original */
+/* logo drawn from the traced lockup in its two greens: the word, and
+   "Ventures" under it in olive */
 .logo-mark {
   position: relative;
   display: block;
@@ -44,18 +44,19 @@
   content: "";
   position: absolute;
   inset: 0;
-  background-color: currentColor;
+  background-color: var(--tone);
   -webkit-mask: var(--part) no-repeat center / contain;
   mask: var(--part) no-repeat center / contain;
 }
 
 .logo-mark::before {
   --part: url("/images/brand/logo-word.svg");
+  --tone: var(--leaf);
 }
 
 .logo-mark::after {
   --part: url("/images/brand/logo-ventures.svg");
-  opacity: 0.72;
+  --tone: var(--leaf-2);
 }
 
 /* nav: sand, or soil over a light section */
@@ -83,6 +84,8 @@
 }
 
 .site-nav.on-light:not(.is-menu-open) {
+  --leaf: #163a14;
+  --leaf-2: #546a38;
   color: var(--soil);
 }
 

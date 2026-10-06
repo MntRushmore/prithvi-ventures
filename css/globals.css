@@ -11,6 +11,11 @@
   --ochre: #c8942f;
   --sindoor: #d33d1f;
 
+  /* the logo's two greens, lifted to read on the dark ground (the original
+     #163a14 and #546a38 are for light grounds) */
+  --leaf: #86b36b;
+  --leaf-2: #a8a970;
+
   /* the current surface; sections override these */
   --bg: var(--soil);
   --fg: var(--sand);
